@@ -1,63 +1,51 @@
 <template>
-  <div id="container">
-    <div id="titleDiv">
-      <h1>Dash Video Gallery</h1>
-    </div>
-    <div id="videoListDiv">
-      <div id="categoryDiv" class="bordered small-div">
-        <h3>Categories</h3>
-        <div v-if="categories.length === 0">
-          <button @click="createCategory">Create Category</button>
-        </div>
-        <div v-else>
-          <button @click="createCategory" class="category-button">Create</button>
-          <button @click="deleteCategory" class="category-button">Delete</button>
-          <ul>
-            <li v-for="(category, index) in categories" :key="index" @click="selectCategory(index)" :class="{'selected-category': selectedCategory === index}">{{category}}</li>
-          </ul>
+  <div class="app">
+    <div class="categories">
+      <button class="create-category-button" @click="createCategory">Create Category</button>
+      <button class="delete-category-button" @click="deleteCategory">Delete Category</button>
+      <div class="category-list">
+        <div
+          v-for="(category, index) in categories"
+          :key="index"
+          class="category-item"
+          :class="{active: selectedCategory === index}"
+          @click="selectCategory(index)"
+        >
+          {{ category }}
         </div>
       </div>
-      <div id="videoDiv" class="bordered large-div">
-        <div id="videoTitleDiv">
-          <h2>Uploaded Videos:</h2>
+    </div>
+    <div class="videos">
+      <div class="video-list">
+        <div
+          v-for="video in videos"
+          :key="video.filename"
+          class="video-item"
+          @click="toggleVideoSelection(video)"
+          :class="{active: isSelected(video)}"
+        >
+          {{ video.filename }}
         </div>
-        <ul>
-          <li class="video-item" v-for="video in videos" :key="video.filename">
-            <span @click="toggleVideoSelection(video)">{{video.filename}}</span>
-            <input type="checkbox" :checked="isSelected(video)" @change="toggleVideoSelection(video)">
-            <button @click="removeVideo(video)" v-if="isSelected(video)">Remove</button>
-          </li>
-        </ul>
+      </div>
+      <div class="upload">
+        <input type="file" @change="handleFileSelection">
+        <button @click="handleUpload">Upload</button>
+        <div class="upload-error" v-if="uploadError">{{ uploadError }}</div>
       </div>
     </div>
-    <div id="spacer"></div>
-    <div id="uploadDiv">
-      <form @submit.prevent="handleUpload">
-        <input type="file" ref="fileInput" id="file" accept="video/*" hidden @change="handleFileSelection"/>
-        <label for="file" class="upload-button">Choose File</label>
-        <button type="submit" class="upload-button">Upload</button>
-      </form>
-    </div>
-    <div v-if="uploadError" id="uploadError" class="error">
-      <p class="alert-text">{{ uploadError }}</p>
-    </div>
-    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="bordered selected-videos">
-      <h2>Selected Videos:</h2>
+    <div class="selected-videos">
+      <h3>Selected Videos</h3>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
-    <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
-      <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
+    <div class="email-form" v-if="showEmailForm">
+      <input type="text" v-model="recipientEmail" placeholder="Recipient Email">
+      <input type="text" v-model="emailSubject" placeholder="Subject">
+      <textarea v-model="emailBody" placeholder="Email Body"></textarea>
+      <button @click="sendEmail">Send</button>
+      <button @click="cancelEmail">Cancel</button>
     </div>
-    <div id="emailFormDiv" v-if="showEmailForm" class="bordered email-form">
-      <h2>Prepare Email:</h2>
-      <label for="recipientEmail">Recipient:</label>
-      <input type="email" id="recipientEmail" v-model="recipientEmail" required>
-      <label for="emailSubject">Subject:</label>
-      <input type="text" id="emailSubject" v-model="emailSubject" required>
-      <label for="emailBody">Body:</label>
-      <textarea id="emailBody" v-model="emailBody" required></textarea>
-      <button @click="cancelEmail" class="cancelButton">Cancel</button>
-      <button @click="sendEmail" class="sendButton">Send</button>
+    <div v-else>
+      <button @click="prepareEmail">Prepare Email</button>
     </div>
   </div>
 </template>

@@ -194,22 +194,23 @@ export default {
       this.emailBody = '';
     },
     async sendEmail() {
-        if(!this.recipientEmail || this.selectedVideos.length === 0) {
+        if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
             alert('All fields are required!');
             return;
         }
-        // Prepare email body
-        let emailBody = '<h2>Here are your specialized Dash videos</h2><br>';
-        this.selectedVideos.forEach(video => {
-            emailBody += `<a href="${video.url}">${video.filename}</a><br><br>`;
-        });
-        emailBody += 'Thank you,<br>Your Name';  // Replace 'Your Name' with your actual name
-
         try {
+            let emailContent = `<h2>Here are your specialized Dash videos</h2><br/>`;
+            for (const video of this.selectedVideos) {
+                const filenameWithoutExtension = video.filename.split('.').slice(0, -1).join('.');
+                emailContent += `${filenameWithoutExtension}<br/>`;
+                emailContent += `<a href="${video.url}">${video.url}</a><br/><br/>`;
+            }
+            emailContent += "Thank you,<br/>Your Name";
+
             await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
                 recipient: this.recipientEmail,
                 subject: this.emailSubject,
-                body: emailBody,  // Use the prepared email body
+                body: this.emailBody + emailContent,
                 videos: this.selectedVideos.map(video => video.filename)
             });
             alert('Email sent successfully!');

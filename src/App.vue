@@ -199,7 +199,7 @@ export default {
         return;
       }
       try {
-        let emailContent = this.emailBody + "\nThank you,\nDash";
+        let emailContent = this.emailBody;
 
         await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
             recipient: this.recipientEmail,
@@ -207,6 +207,7 @@ export default {
             body: emailContent,
             videos: this.selectedVideos.map(video => video.filename)
         });
+
         alert('Email sent successfully!');
         this.cancelEmail();
         this.selectedVideos = [];

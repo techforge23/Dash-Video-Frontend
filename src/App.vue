@@ -194,28 +194,25 @@ export default {
       this.emailBody = '';
     },
     async sendEmail() {
-      if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
-        alert('All fields are required!');
-        return;
-      }
-      let formData = new FormData();
-      formData.append('recipient', this.recipientEmail);
-      formData.append('body', this.emailBody + '\n' + this.selectedVideos.map(video => `${video.filename}: ${video.url}`).join('\n'));
-      try {
-        await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        alert('Email sent successfully!');
-        this.cancelEmail();
-        this.selectedVideos = [];
-      } catch (error) {
-        console.error(error);
-        alert('An error occurred while sending the email');
-      }
+        if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
+            alert('All fields are required!');
+            return;
+        }
+        try {
+            await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
+                recipient: this.recipientEmail,
+                subject: this.emailSubject,
+                body: this.emailBody,
+                videos: this.selectedVideos.map(video => video.filename)
+            });
+            alert('Email sent successfully!');
+            this.cancelEmail();
+            this.selectedVideos = [];
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred while sending the email');
+        }
     },
-  },
   mounted() {
     this.fetchVideos();
     this.fetchCategories();

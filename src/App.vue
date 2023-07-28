@@ -43,7 +43,7 @@
     </div>
     <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="bordered selected-videos">
       <h2>Selected Videos:</h2>
-      <p>{{ selectedVideos.join(', ') }}</p>
+      <p>{{ selectedVideoNames }}</p>
     </div>
     <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
       <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
@@ -80,6 +80,11 @@ export default {
       emailSubject: '',
       emailBody: ''
     };
+  },
+  computed:{
+    selectedVideoNames() {
+        return this.selectVideos.map(video => video.filename).join(', ');
+    }
   },
   methods: {
     handleFileSelection(event) {

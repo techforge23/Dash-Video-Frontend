@@ -75,10 +75,10 @@ export default {
       selectedVideos: [],
       selectedFile: null,
       uploadError: null,
-      showEmailForm: false, // To control the visibility of email form
-      recipientEmail: '', // Recipient email address
-      emailSubject: '', // Email subject
-      emailBody: '' // Email body
+      showEmailForm: false,
+      recipientEmail: '',
+      emailSubject: '',
+      emailBody: ''
     };
   },
   methods: {
@@ -91,7 +91,7 @@ export default {
           const response = await axios.get(process.env.VUE_APP_API_URL + 'videos?category=' + this.categories[this.selectedCategory]);
           this.videos = response.data.videos.map(video => ({
             ...video,
-            isSelected: this.selectedVideos.includes(video.filename)
+            isSelected: this.selectedVideos.findIndex(v => v.filename === video.filename) > -1
           }));
         } catch (error) {
           console.log(error);
@@ -176,9 +176,9 @@ export default {
     toggleVideoSelection(video) {
       video.isSelected = !video.isSelected;
       if(video.isSelected) {
-        this.selectedVideos.push(video.filename);
+        this.selectedVideos.push({filename: video.filename, url: video.url});
       } else {
-        const index = this.selectedVideos.indexOf(video.filename);
+        const index = this.selectedVideos.findIndex(v => v.filename === video.filename);
         if (index > -1) {
           this.selectedVideos.splice(index, 1);
         }
@@ -194,19 +194,13 @@ export default {
       this.emailBody = '';
     },
     async sendEmail() {
-      // Validation checks
-      if(!this.recipientEmail || !this.emailBody || !this.selectedVideos.length === 0) {
+      if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
         alert('All fields are required!');
         return;
       }
-      // Prepare form data
       let formData = new FormData();
       formData.append('recipient', this.recipientEmail);
-      formData.append('body', this.emailBody);
-      for(let i = 0; i < this.selectedVideos.length; i++) {
-        formData.append('videos', this.selectedVideos[i]);
-       }
-      // Send email logic
+      formData.append('body', this.emailBody + '\n' + this.selectedVideos.map(video => `${video.filename}: ${video.url}`).join('\n'));
       try {
         await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', formData, {
             headers: {

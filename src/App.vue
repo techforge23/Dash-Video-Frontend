@@ -13,7 +13,7 @@
           <button @click="createCategory" class="category-button">Create</button>
           <button @click="deleteCategory" class="category-button">Delete</button>
           <ul>
-            <li v-for="category in categories" :key="category" @click="selectCategory(category)" :class="{'selected-category': selectedCategory === category}">{{category}}</li>
+            <li v-for="(category, index) in categories" :key="index" @click="selectCategory(index)" :class="{'selected-category': selectedCategory === index}">{{category}}</li>
           </ul>
         </div>
       </div>
@@ -169,8 +169,8 @@ export default {
         alert("Category name cannot be empty!");
       }
     },
-    selectCategory(category) {
-      this.selectedCategory = category;
+    selectCategory(index) {
+      this.selectedCategory = index;
       this.fetchVideos();
     },
     toggleVideoSelection(video) {

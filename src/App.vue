@@ -213,6 +213,7 @@ export default {
             alert('An error occurred while sending the email');
         }
     },
+  },
   mounted() {
     this.fetchVideos();
     this.fetchCategories();

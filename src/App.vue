@@ -194,31 +194,26 @@ export default {
       this.emailBody = '';
     },
     async sendEmail() {
-        if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
-            alert('All fields are required!');
-            return;
-        }
-        try {
-            let emailContent = `<h2>Here are your specialized Dash videos</h2><br/>`;
-            for (const video of this.selectedVideos) {
-                emailContent += `<a href="${video.url}">${video.url}</a><br/><br/>`;
-            }
-            emailContent += `${this.emailBody}<br/>`
-            emailContent += "Thank you,<br/>Dash";
+      if(!this.recipientEmail || !this.emailBody || this.selectedVideos.length === 0) {
+        alert('All fields are required!');
+        return;
+      }
+      try {
+        let emailContent = this.emailBody + "\nThank you,\nDash";
 
-            await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
-                recipient: this.recipientEmail,
-                subject: this.emailSubject,
-                body: this.emailBody + emailContent,
-                videos: this.selectedVideos.map(video => video.filename)
-            });
-            alert('Email sent successfully!');
-            this.cancelEmail();
-            this.selectedVideos = [];
-        } catch (error) {
-            console.error(error);
-            alert('An error occurred while sending the email');
-        }
+        await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
+            recipient: this.recipientEmail,
+            subject: this.emailSubject,
+            body: emailContent,
+            videos: this.selectedVideos.map(video => video.filename)
+        });
+        alert('Email sent successfully!');
+        this.cancelEmail();
+        this.selectedVideos = [];
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while sending the email');
+      }
     },
   },
   mounted() {

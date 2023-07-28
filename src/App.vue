@@ -201,11 +201,10 @@ export default {
         try {
             let emailContent = `<h2>Here are your specialized Dash videos</h2><br/>`;
             for (const video of this.selectedVideos) {
-                const filenameWithoutExtension = video.filename.split('.').slice(0, -1).join('.');
-                emailContent += `${filenameWithoutExtension}<br/>`;
                 emailContent += `<a href="${video.url}">${video.url}</a><br/><br/>`;
             }
-            emailContent += "Thank you,<br/>Your Name";
+            emailContent += `${this.emailBody}<br/>`
+            emailContent += "Thank you,<br/>Dash";
 
             await axios.post(process.env.VUE_APP_API_URL + 'sendEmail', {
                 recipient: this.recipientEmail,

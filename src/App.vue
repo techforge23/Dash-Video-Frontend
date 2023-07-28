@@ -37,15 +37,28 @@
       <h3>Selected Videos</h3>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
-    <div class="email-form" v-if="showEmailForm">
-      <input type="text" v-model="recipientEmail" placeholder="Recipient Email">
-      <input type="text" v-model="emailSubject" placeholder="Subject">
-      <textarea v-model="emailBody" placeholder="Email Body"></textarea>
-      <button @click="sendEmail">Send</button>
-      <button @click="cancelEmail">Cancel</button>
-    </div>
-    <div v-else>
-      <button @click="prepareEmail">Prepare Email</button>
+    <div class="email-container">
+      <div class="button-wrapper" v-if="!showEmailForm">
+        <button @click="prepareEmail">Prepare Email</button>
+      </div>
+      <div class="email-form" v-else>
+        <div class="email-field">
+          <label for="recipientEmail">Recipient Email:</label>
+          <input id="recipientEmail" type="text" v-model="recipientEmail" placeholder="Recipient Email">
+        </div>
+        <div class="email-field">
+          <label for="emailSubject">Subject:</label>
+          <input id="emailSubject" type="text" v-model="emailSubject" placeholder="Subject">
+        </div>
+        <div class="email-field">
+          <label for="emailBody">Email Body:</label>
+          <textarea id="emailBody" v-model="emailBody" placeholder="Email Body"></textarea>
+        </div>
+        <div class="button-wrapper">
+          <button @click="sendEmail">Send</button>
+          <button @click="cancelEmail">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -220,7 +233,7 @@ body, html {
   padding: 0;
 }
 
-#container {
+.app {
   display: flex;
   flex-direction: column;
   border: 3px solid black;
@@ -230,131 +243,97 @@ body, html {
   overflow: hidden;
 }
 
-#titleDiv {
+.categories {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10%;
-}
-
-#videoListDiv {
-  display: flex;
-  justify-content: space-between;
-  height: 45%;
   padding: 20px;
-  background-color: white;
 }
 
-#categoryDiv, #videoDiv {
+.create-category-button,
+.delete-category-button {
+  margin-bottom: 10px;
+}
+
+.category-list {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border: 1px solid black;
+}
+
+.category-item {
+  cursor: pointer;
   padding: 10px;
-  margin-top: 20px;
-  align-items: center;
 }
 
-#spacer {
-  flex-grow: .15;
-  background-color: white;
+.category-item.active {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
-.small-div {
-  width: 30%;
-  height: 100%;
-}
-
-.large-div {
-  width: 65%;
-  height: 100%;
-}
-
-#uploadDiv, #sendDiv {
+.videos {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
-#uploadDiv {
-  height: 10%;
+.video-list {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
-#sendDiv {
-  height: 10%;
-  margin-top: 20px;
-}
-
-.category-button {
-  margin-bottom: 5px;
-  margin-right: 5px;
-}
-
-.bordered {
-  margin-bottom: 5px;
-  border: 1px solid black;
+.video-item {
+  cursor: pointer;
   padding: 10px;
 }
 
-.active {
+.video-item.active {
   font-weight: bold;
   text-decoration: underline;
 }
 
-.button-wrapper {
-  display: flex;
-  justify-content: flex-start;
+.upload {
+  margin-top: 20px;
 }
 
-.action-button {
-  margin-right: 5px;
-}
-
-.selected-category {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.upload-button, .sendButton {
-  display: inline-block;
-  padding: 10px 24px;
-  margin-bottom: 0;
-  font-size: 14px;
-  color: #333;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  white-space: nowrap;
-  background-color: #fff;
-  text-decoration: none;
-  margin-top: 45px;
-}
-
-.upload-button {
-  margin-right: 10px;
-}
-
-.upload-button:hover, .sendButton:hover {
-  background-color: #d3d3d3;
-}
-
-.alert-text {
-  text-align: center;
+.upload-error {
+  color: red;
 }
 
 .selected-videos {
-  height: 150px;
-  overflow-y: auto;
-  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
+.email-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.button-wrapper {
+  margin-top: 20px;
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.email-field {
+  margin-bottom: 10px;
+}
 </style>
+
 
 
 

@@ -88,7 +88,7 @@ export default {
     async fetchVideos() {
       if (this.selectedCategory) {
         try {
-          const response = await axios.get('http://localhost:5000/videos?category=' + this.selectedCategory);
+          const response = await axios.get(process.env.VUE_APP_API_URL + '/videos?category=' + this.selectedCategory);
           this.videos = response.data.videos.map(video => ({
             ...video,
             isSelected: this.selectedVideos.includes(video.filename)
@@ -100,7 +100,7 @@ export default {
     },
     async fetchCategories() {
       try {
-        const response = await axios.get('http://localhost:5000/categories');
+        const response = await axios.get(process.env.VUE_APP_API_URL + '/categories');
         this.categories = response.data.categories;
       } catch (error) {
         console.log(error);
@@ -117,7 +117,7 @@ export default {
       formData.append('category', this.selectedCategory);
 
       try {
-        await axios.post('http://localhost:5000/upload', formData);
+        await axios.post(process.env.VUE_APP_API_URL + '/upload', formData);
         this.selectedFile = null;
         this.uploadError = null;
         await this.fetchVideos();
@@ -131,7 +131,7 @@ export default {
     },
     async removeVideo(video) {
       try {
-        await axios.delete(`http://localhost:5000/video/${video.filename}`);
+        await axios.delete(process.env.VUE_APP_API_URL + `/video/${video.filename}`);
         await this.fetchVideos();
       } catch (error) {
         console.error(error);
@@ -141,7 +141,7 @@ export default {
       let categoryName = window.prompt("Please enter the category name:");
       if (categoryName) {
         try {
-          await axios.post('http://localhost:5000/category', {category_name: categoryName});
+          await axios.post(process.env.VUE_APP_API_URL + '/category', {category_name: categoryName});
           await this.fetchCategories();
         } catch (error) {
           console.error(error);
@@ -155,7 +155,7 @@ export default {
       let categoryName = window.prompt("Please enter the category name to delete:");
       if (categoryName) {
         try {
-          await axios.delete(`http://localhost:5000/category/${categoryName}`);
+          await axios.delete(process.env.VUE_APP_API_URL + `/category/${categoryName}`);
           await this.fetchCategories();
         } catch (error) {
           if (error.response && error.response.status === 404) {
@@ -208,7 +208,7 @@ export default {
        }
       // Send email logic
       try {
-        await axios.post('http://localhost:5000/sendEmail', formData, {
+        await axios.post(process.env.VUE_APP_API_URL + '/sendEmail', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

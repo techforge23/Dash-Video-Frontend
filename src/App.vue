@@ -86,9 +86,9 @@ export default {
       this.selectedFile = event.target.files[0];
     },
     async fetchVideos() {
-      if (this.selectedCategory) {
+      if (this.selectedCategory !== null) {
         try {
-          const response = await axios.get(process.env.VUE_APP_API_URL + '/videos?category=' + this.selectedCategory);
+          const response = await axios.get(process.env.VUE_APP_API_URL + '/videos?category=' + this.categories[this.selectedCategory]);
           this.videos = response.data.videos.map(video => ({
             ...video,
             isSelected: this.selectedVideos.includes(video.filename)
@@ -107,14 +107,14 @@ export default {
       }
     },
     async handleUpload() {
-      if (!this.selectedCategory) {
+      if (this.selectedCategory === null) {
         this.uploadError = "Please select a category before uploading.";
         return;
       }
 
       const formData = new FormData();
       formData.append('video', this.selectedFile);
-      formData.append('category', this.selectedCategory);
+      formData.append('category', this.categories[this.selectedCategory]);
 
       try {
         await axios.post(process.env.VUE_APP_API_URL + '/upload', formData);

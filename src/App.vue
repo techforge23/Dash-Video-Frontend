@@ -24,8 +24,8 @@
         <ul>
           <li class="video-item" v-for="video in videos" :key="video.filename">
             <span @click="toggleVideoSelection(video)">{{video.filename}}</span>
-            <input type="checkbox" :checked="video.isSelected" @change="toggleVideoSelection(video)">
-            <button @click="removeVideo(video)" v-if="video.isSelected">Remove</button>
+            <input type="checkbox" :checked="isSelected(video)" @change="toggleVideoSelection(video)">
+            <button @click="removeVideo(video)" v-if="isSelected(video)">Remove</button>
           </li>
         </ul>
       </div>
@@ -43,7 +43,7 @@
     </div>
     <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="bordered selected-videos">
       <h2>Selected Videos:</h2>
-      <p>{{ selectedVideoNames }}</p>
+      <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
     <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
       <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
@@ -80,11 +80,6 @@ export default {
       emailSubject: '',
       emailBody: ''
     };
-  },
-  computed:{
-    selectedVideoNames() {
-        return this.selectVideos.map(video => video.filename).join(', ');
-    }
   },
   methods: {
     handleFileSelection(event) {
@@ -179,15 +174,15 @@ export default {
       this.fetchVideos();
     },
     toggleVideoSelection(video) {
-      video.isSelected = !video.isSelected;
-      if(video.isSelected) {
-        this.selectedVideos.push({filename: video.filename, url: video.url});
+      const foundIndex = this.selectedVideos.findIndex(v => v.filename === video.filename);
+      if (foundIndex > -1) {
+        this.selectedVideos.splice(foundIndex, 1);
       } else {
-        const index = this.selectedVideos.findIndex(v => v.filename === video.filename);
-        if (index > -1) {
-          this.selectedVideos.splice(index, 1);
-        }
+        this.selectedVideos.push({filename: video.filename, url: video.url});
       }
+    },
+    isSelected(video) {
+      return this.selectedVideos.findIndex(v => v.filename === video.filename) > -1;
     },
     prepareEmail() {
       this.showEmailForm = true;

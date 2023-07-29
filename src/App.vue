@@ -4,7 +4,7 @@
       <h1>Dash Video Gallery</h1>
     </div>
     <div id="videoListDiv">
-      <div id="categoryDiv" class="bordered small-div">
+      <div id="categoryDiv" class="small-div">
         <h3>Categories</h3>
         <div v-if="categories.length === 0">
           <button @click="createCategory">Create Category</button>
@@ -17,7 +17,7 @@
           </ul>
         </div>
       </div>
-      <div id="videoDiv" class="bordered large-div">
+      <div id="videoDiv" class="large-div">
         <div id="videoTitleDiv">
           <h2>Uploaded Videos:</h2>
         </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div id="spacer"></div>
-    <div id="uploadDiv" v-if="selectedVideos.length === 0">
+    <div v-if="selectedVideos.length === 0" id="uploadDiv">
       <form @submit.prevent="handleUpload">
         <input type="file" ref="fileInput" id="file" accept="video/*" hidden @change="handleFileSelection"/>
         <label for="file" class="upload-button">Choose File</label>
@@ -41,7 +41,7 @@
     <div v-if="uploadError" id="uploadError" class="error">
       <p class="alert-text">{{ uploadError }}</p>
     </div>
-    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="bordered selected-videos">
+    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="selected-videos">
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
@@ -49,7 +49,7 @@
       <div v-if="!showEmailForm" class="center-content">
         <button @click="prepareEmail" class="upload-button">Prepare Email</button>
       </div>
-      <div id="emailFormDiv" v-if="showEmailForm" class="email-form bordered">
+      <div id="emailFormDiv" v-if="showEmailForm" class="email-form">
         <h2>Prepare Email:</h2>
         <label for="recipientEmail">Recipient:</label>
         <input type="email" id="recipientEmail" v-model="recipientEmail" required>
@@ -58,8 +58,8 @@
         <label for="emailBody">Body:</label>
         <textarea id="emailBody" v-model="emailBody" required></textarea>
         <div class="email-action-buttons">
-          <button @click="cancelEmail" class="upload-button">Cancel</button>
-          <button @click="sendEmail" class="upload-button">Send</button>
+          <button @click="cancelEmail" class="cancelButton">Cancel</button>
+          <button @click="sendEmail" class="sendButton">Send</button>
         </div>
       </div>
     </div>
@@ -265,7 +265,6 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border: 1px solid black;
   padding: 10px;
   margin-top: 20px;
   align-items: center;
@@ -287,14 +286,46 @@ body, html {
 }
 
 #uploadDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 10%;
+}
+
+#selectedVideosDiv {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #emailInteractionDiv {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 20%;
+  flex-grow: 1;
+}
+
+#emailFormDiv {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+}
+
+.email-form label,
+.email-form input,
+.email-form textarea,
+.email-action-buttons {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.email-action-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .category-button {
@@ -331,7 +362,7 @@ body, html {
   box-sizing: border-box;
 }
 
-.upload-button {
+.upload-button, .sendButton, .cancelButton {
   display: inline-block;
   padding: 10px 24px;
   margin-bottom: 0;
@@ -345,10 +376,13 @@ body, html {
   white-space: nowrap;
   background-color: #fff;
   text-decoration: none;
-  margin-top: 45px;
 }
 
-.upload-button:hover {
+.upload-button {
+  margin-right: 10px;
+}
+
+.upload-button:hover, .sendButton:hover, .cancelButton:hover {
   background-color: #d3d3d3;
 }
 
@@ -366,29 +400,6 @@ body, html {
   text-align: center;
   width: 100%;
 }
-
-.email-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.email-form input, .email-form textarea {
-  width: 70%;
-  margin-bottom: 15px;
-}
-
-.email-form textarea {
-  height: 100px;
-}
-
-.email-action-buttons {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
 </style>
 
 

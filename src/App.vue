@@ -31,7 +31,7 @@
       </div>
     </div>
     <div id="spacer"></div>
-    <div id="uploadDiv">
+    <div v-if="selectedVideos.length === 0" id="uploadDiv">
       <form @submit.prevent="handleUpload">
         <input type="file" ref="fileInput" id="file" accept="video/*" hidden @change="handleFileSelection"/>
         <label for="file" class="upload-button">Choose File</label>
@@ -256,7 +256,7 @@ body, html {
 #videoListDiv {
   display: flex;
   justify-content: space-between;
-  height: 35%;
+  height: 45%;
   padding: 20px;
   background-color: white;
 }
@@ -265,14 +265,13 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border: 1px solid black;
   padding: 10px;
   margin-top: 20px;
   align-items: center;
 }
 
 #spacer {
-  flex-grow: 0.2;
+  flex-grow: .15;
   background-color: white;
 }
 
@@ -286,34 +285,47 @@ body, html {
   height: 100%;
 }
 
-#uploadDiv, #sendDiv {
+#uploadDiv {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#uploadDiv {
   height: 10%;
 }
 
-#sendDiv {
+#selectedVideosDiv {
   height: 10%;
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #emailInteractionDiv {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25%;
+  flex-grow: 1;
 }
 
 #emailFormDiv {
   display: flex;
   flex-direction: column;
+  width: 80%;
+  height: 80%;
   justify-content: center;
   align-items: center;
-  height: 25%;
+}
+
+.email-form label,
+.email-form input,
+.email-form textarea,
+.email-action-buttons {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.email-action-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 
 .category-button {
@@ -350,7 +362,7 @@ body, html {
   box-sizing: border-box;
 }
 
-.upload-button, .sendButton {
+.upload-button, .sendButton, .cancelButton {
   display: inline-block;
   padding: 10px 24px;
   margin-bottom: 0;
@@ -364,14 +376,13 @@ body, html {
   white-space: nowrap;
   background-color: #fff;
   text-decoration: none;
-  margin-top: 45px;
 }
 
 .upload-button {
   margin-right: 10px;
 }
 
-.upload-button:hover, .sendButton:hover {
+.upload-button:hover, .sendButton:hover, .cancelButton:hover {
   background-color: #d3d3d3;
 }
 
@@ -389,13 +400,8 @@ body, html {
   text-align: center;
   width: 100%;
 }
-
-.email-action-buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
 </style>
+
 
 
 

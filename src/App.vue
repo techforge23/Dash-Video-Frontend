@@ -335,6 +335,7 @@ body, html {
 
 #emailInputsDiv {
   display: flex;
+  flex-direction: column; /* Changed from row to column */
   justify-content: space-between;
   width: 100%;
   margin-bottom: 5px;
@@ -342,12 +343,9 @@ body, html {
 
 .email-input-row {
   display: flex;
-  align-items: center;
-  margin-right: 3px;
-}
-
-.email-input-row label, .email-input-row input, .email-input-row textarea {
-  margin: 0;
+  flex-direction: column; /* Changed from row to column */
+  align-items: start;
+  margin-bottom: 10px; /* Add some space between fields */
 }
 
 #emailBody {

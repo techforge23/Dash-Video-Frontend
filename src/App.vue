@@ -51,12 +51,20 @@
       </div>
       <div id="emailFormDiv" v-if="showEmailForm" class="email-form">
         <h2>Prepare Email:</h2>
-        <label for="recipientEmail">Recipient:</label>
-        <input type="email" id="recipientEmail" v-model="recipientEmail" required>
-        <label for="emailSubject">Subject:</label>
-        <input type="text" id="emailSubject" v-model="emailSubject" required>
-        <label for="emailBody">Body:</label>
-        <textarea id="emailBody" v-model="emailBody" required></textarea>
+        <div id="emailInputsDiv">
+          <div class="email-input-row">
+            <label for="recipientEmail">Recipient:</label>
+            <input type="email" id="recipientEmail" v-model="recipientEmail" required>
+          </div>
+          <div class="email-input-row">
+            <label for="emailSubject">Subject:</label>
+            <input type="text" id="emailSubject" v-model="emailSubject" required>
+          </div>
+          <div class="email-input-row">
+            <label for="emailBody">Body:</label>
+            <textarea id="emailBody" v-model="emailBody" required></textarea>
+          </div>
+        </div>
         <div class="email-action-buttons">
           <button @click="cancelEmail" class="cancelButton">Cancel</button>
           <button @click="sendEmail" class="sendButton">Send</button>

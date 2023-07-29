@@ -254,7 +254,7 @@ body, html {
 #videoListDiv {
   display: flex;
   justify-content: space-between;
-  height: 45%;
+  height: 35%;
   padding: 20px;
   background-color: white;
 }
@@ -270,7 +270,7 @@ body, html {
 }
 
 #spacer {
-  flex-grow: .15;
+  flex-grow: 0.1;
   background-color: white;
 }
 
@@ -303,7 +303,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 25%;
 }
 
 .category-button {
@@ -379,8 +379,8 @@ body, html {
   text-align: center;
   width: 100%;
 }
-
 </style>
+
 
 
 

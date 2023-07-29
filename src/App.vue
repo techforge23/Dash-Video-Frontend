@@ -323,32 +323,17 @@ body, html {
   align-items: center;
 }
 
-.email-form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-}
-
-.email-form label {
-  align-self: flex-start;
-}
-
+.email-form label,
 .email-form input,
 .email-form textarea {
-  width: 80%;
-  margin: 10px 0;
-}
-
-.email-input-row textarea {
-  height: 100px;
+  width: 100%;   /* Increase the width of form elements */
+  margin: 10px 0;  /* Horizontally center form elements */
 }
 
 .email-action-buttons {
+  width: 100%; /* Increase the width of button div */
   display: flex;
-  justify-content: space-between;
-  width: 80%;
-  margin-top: 5px;
+  justify-content: space-around; /* Changed from space-between to space-around to bring buttons closer */
 }
 
 .category-button {
@@ -423,17 +408,8 @@ body, html {
   text-align: center;
   width: 100%;
 }
-
-.email-header {
-  margin-bottom: 20px;
-}
-
-.email-input-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 </style>
+
 
 
 

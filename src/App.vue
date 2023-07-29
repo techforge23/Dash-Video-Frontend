@@ -276,6 +276,7 @@ body, html {
   padding: 10px;
   margin-top: 20px;
   align-items: center;
+  border: 1px solid black; /* Added border */
 }
 
 #spacer {
@@ -305,6 +306,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid black; /* Added border */
 }
 
 #emailInteractionDiv {
@@ -323,17 +325,30 @@ body, html {
   align-items: center;
 }
 
+#emailInputsDiv {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.email-input-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .email-form label,
 .email-form input,
 .email-form textarea {
-  width: 60%;   /* Decrease the width of form elements */
-  margin: 10px auto;  /* Horizontally center form elements */
+  width: 100%;
 }
 
 .email-action-buttons {
-  width: 60%; /* Decrease the width of button div */
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .category-button {
@@ -409,6 +424,7 @@ body, html {
   width: 100%;
 }
 </style>
+
 
 
 

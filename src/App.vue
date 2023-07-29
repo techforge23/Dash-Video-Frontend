@@ -179,7 +179,7 @@ export default {
         } catch (error) {
           if (error.response && error.response.status === 404) {
             alert("Category does not exist!");
-          } else if (error.response.status === 409) {
+          } else if (error.response.status === 500) {
             alert("Category must be empty in oder to delete it.");
           } else {
             console.error(error);

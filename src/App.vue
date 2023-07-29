@@ -144,9 +144,16 @@ export default {
     async removeVideo(video) {
       try {
         await axios.delete(process.env.VUE_APP_API_URL + `video/${video.filename}`);
+        this.removeFromSelectedVideos(video);
         await this.fetchVideos();
       } catch (error) {
         console.error(error);
+      }
+    },
+    removeFromSelectedVideos(video) {
+      const foundIndex = this.selectedVideos.findIndex(v => v.filename === video.filename);
+      if (foundIndex !== -1) {
+        this.selectedVideos.splice(foundIndex, 1);
       }
     },
     async createCategory() {

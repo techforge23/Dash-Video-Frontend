@@ -45,8 +45,8 @@
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
-    <div id="emailInteractionDiv" class="email-interaction">
-      <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
+    <div id="emailInteractionDiv">
+      <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0" class="center-content">
         <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
       </div>
       <div id="emailFormDiv" v-if="showEmailForm">
@@ -299,6 +299,13 @@ body, html {
   margin-top: 20px;
 }
 
+#emailInteractionDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .category-button {
   margin-bottom: 5px;
   margin-right: 5px;
@@ -366,6 +373,11 @@ body, html {
   height: 150px;
   overflow-y: auto;
   background: white;
+}
+
+.center-content {
+  text-align: center;
+  width: 100%;
 }
 
 </style>

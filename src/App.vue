@@ -293,10 +293,6 @@ body, html {
   height: 100%;
 }
 
-.bordered {
-  border: 1px solid black;
-}
-
 #uploadDiv {
   display: flex;
   justify-content: center;
@@ -321,50 +317,39 @@ body, html {
 #emailFormDiv {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
+  height: 80%;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
-.email-header {
-  margin-bottom: 20px;
-  position: absolute;
-  top: -20px;
+.email-form label,
+.email-form input,
+.email-form textarea {
+  width: 60%;   /* Decrease the width of form elements */
+  margin: 10px auto;  /* Horizontally center form elements */
 }
 
-#emailInputsDiv {
-  display: flex;
-  flex-direction: column; /* Changed from row to column */
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-.email-input-row {
-  display: flex;
-  flex-direction: column; /* Changed from row to column */
-  align-items: start;
-  margin-bottom: 10px; /* Add some space between fields */
-}
-
-#emailBody {
-  height: 60px;
+.email-input-row textarea {
+  height: 100px; /* Increase height of email body input */
 }
 
 .email-action-buttons {
-  width: 100%;
+  width: 60%; /* Decrease the width of button div */
   display: flex;
   justify-content: space-between;
-}
-
-.sendButton {
-  margin-left: 5px;
+  margin-top: 5px;  /* add space between buttons and form inputs */
 }
 
 .category-button {
   margin-bottom: 5px;
   margin-right: 5px;
+}
+
+.bordered {
+  margin-bottom: 5px;
+  border: 1px solid black;
+  padding: 10px;
 }
 
 .active {
@@ -428,5 +413,16 @@ body, html {
   text-align: center;
   width: 100%;
 }
+
+.email-header {
+  margin-bottom: 20px;
+}
+
+.email-input-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>
+
 

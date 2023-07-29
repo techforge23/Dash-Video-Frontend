@@ -326,7 +326,7 @@ body, html {
 .email-form label,
 .email-form input,
 .email-form textarea {
-  width: 60%;   /* Decrease the width of form elements */
+  width: 80%;   /* Increase the width of form elements */
   margin: 10px auto;  /* Horizontally center form elements */
 }
 
@@ -424,5 +424,6 @@ body, html {
   align-items: center;
 }
 </style>
+
 
 

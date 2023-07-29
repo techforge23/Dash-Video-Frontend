@@ -317,13 +317,13 @@ body, html {
 
 .email-form label,
 .email-form input,
-.email-form textarea,
-.email-action-buttons {
-  width: 100%;
-  margin: 10px 0;
+.email-form textarea {
+  width: 60%;   /* Decrease the width of form elements */
+  margin: 10px auto;  /* Horizontally center form elements */
 }
 
 .email-action-buttons {
+  width: 60%; /* Decrease the width of button div */
   display: flex;
   justify-content: space-between;
 }
@@ -401,6 +401,7 @@ body, html {
   width: 100%;
 }
 </style>
+
 
 
 

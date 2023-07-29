@@ -270,7 +270,7 @@ body, html {
 }
 
 #spacer {
-  flex-grow: 0.1;
+  flex-grow: 0.2;
   background-color: white;
 }
 

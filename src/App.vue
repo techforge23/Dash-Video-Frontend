@@ -45,19 +45,21 @@
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
-    <div id="prepareEmailDiv" v-if="!showEmailForm">
-      <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
-    </div>
-    <div id="emailFormDiv" v-if="showEmailForm" class="bordered email-form">
-      <h2>Prepare Email:</h2>
-      <label for="recipientEmail">Recipient:</label>
-      <input type="email" id="recipientEmail" v-model="recipientEmail" required>
-      <label for="emailSubject">Subject:</label>
-      <input type="text" id="emailSubject" v-model="emailSubject" required>
-      <label for="emailBody">Body:</label>
-      <textarea id="emailBody" v-model="emailBody" required></textarea>
-      <button @click="cancelEmail" class="cancelButton">Cancel</button>
-      <button @click="sendEmail" class="sendButton">Send</button>
+    <div id="emailInteractionDiv" class="bordered email-interaction">
+      <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
+        <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
+      </div>
+      <div id="emailFormDiv" v-if="showEmailForm">
+        <h2>Prepare Email:</h2>
+        <label for="recipientEmail">Recipient:</label>
+        <input type="email" id="recipientEmail" v-model="recipientEmail" required>
+        <label for="emailSubject">Subject:</label>
+        <input type="text" id="emailSubject" v-model="emailSubject" required>
+        <label for="emailBody">Body:</label>
+        <textarea id="emailBody" v-model="emailBody" required></textarea>
+        <button @click="cancelEmail" class="cancelButton">Cancel</button>
+        <button @click="sendEmail" class="sendButton">Send</button>
+      </div>
     </div>
   </div>
 </template>

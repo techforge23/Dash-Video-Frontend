@@ -321,20 +321,20 @@ body, html {
 #emailFormDiv {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  height: 80%;
+  width: 50%;
   justify-content: center;
   align-items: center;
 }
 
 .email-header {
-  margin-bottom: -20px;
+  margin-bottom: 10px;
 }
 
 #emailInputsDiv {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 5px;
 }
 
 .email-input-row {
@@ -348,10 +348,9 @@ body, html {
 }
 
 .email-action-buttons {
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
 }
 
 .category-button {
@@ -421,14 +420,3 @@ body, html {
   width: 100%;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-

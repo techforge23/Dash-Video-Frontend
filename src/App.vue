@@ -4,7 +4,7 @@
       <h1>Dash Video Gallery</h1>
     </div>
     <div id="videoListDiv">
-      <div id="categoryDiv" class="bordered small-div">
+      <div id="categoryDiv" class="small-div">
         <h3>Categories</h3>
         <div v-if="categories.length === 0">
           <button @click="createCategory">Create Category</button>
@@ -17,7 +17,7 @@
           </ul>
         </div>
       </div>
-      <div id="videoDiv" class="bordered large-div">
+      <div id="videoDiv" class="large-div">
         <div id="videoTitleDiv">
           <h2>Uploaded Videos:</h2>
         </div>
@@ -41,15 +41,15 @@
     <div v-if="uploadError" id="uploadError" class="error">
       <p class="alert-text">{{ uploadError }}</p>
     </div>
-    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="bordered selected-videos">
+    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="selected-videos">
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
     <div id="emailInteractionDiv">
-      <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0" class="center-content">
-        <button @click="prepareEmail" class="sendButton">Prepare Email</button>
+      <div v-if="!showEmailForm" class="center-content">
+        <button @click="prepareEmail" class="upload-button">Prepare Email</button>
       </div>
-      <div id="emailFormDiv" v-if="showEmailForm">
+      <div id="emailFormDiv" v-if="showEmailForm" class="email-form">
         <h2>Prepare Email:</h2>
         <label for="recipientEmail">Recipient:</label>
         <input type="email" id="recipientEmail" v-model="recipientEmail" required>
@@ -57,8 +57,10 @@
         <input type="text" id="emailSubject" v-model="emailSubject" required>
         <label for="emailBody">Body:</label>
         <textarea id="emailBody" v-model="emailBody" required></textarea>
-        <button @click="cancelEmail" class="cancelButton">Cancel</button>
-        <button @click="sendEmail" class="sendButton">Send</button>
+        <div class="email-action-buttons">
+          <button @click="cancelEmail" class="cancelButton">Cancel</button>
+          <button @click="sendEmail" class="sendButton">Send</button>
+        </div>
       </div>
     </div>
   </div>
@@ -306,6 +308,14 @@ body, html {
   height: 25%;
 }
 
+#emailFormDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+}
+
 .category-button {
   margin-bottom: 5px;
   margin-right: 5px;
@@ -377,6 +387,12 @@ body, html {
 
 .center-content {
   text-align: center;
+  width: 100%;
+}
+
+.email-action-buttons {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 </style>

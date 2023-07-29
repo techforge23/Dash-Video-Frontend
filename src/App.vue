@@ -47,7 +47,7 @@
     </div>
     <div id="emailInteractionDiv">
       <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0" class="center-content">
-        <button @click="prepareEmail" class="SsendButton">Prepare Email</button>
+        <button @click="prepareEmail" class="sendButton">Prepare Email</button>
       </div>
       <div id="emailFormDiv" v-if="showEmailForm">
         <h2>Prepare Email:</h2>

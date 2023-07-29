@@ -4,7 +4,7 @@
       <h1>Dash Video Gallery</h1>
     </div>
     <div id="videoListDiv">
-      <div id="categoryDiv" class="small-div">
+      <div id="categoryDiv" class="small-div bordered">
         <h3>Categories</h3>
         <div v-if="categories.length === 0">
           <button @click="createCategory">Create Category</button>
@@ -17,7 +17,7 @@
           </ul>
         </div>
       </div>
-      <div id="videoDiv" class="large-div">
+      <div id="videoDiv" class="large-div bordered">
         <div id="videoTitleDiv">
           <h2>Uploaded Videos:</h2>
         </div>
@@ -41,7 +41,7 @@
     <div v-if="uploadError" id="uploadError" class="error">
       <p class="alert-text">{{ uploadError }}</p>
     </div>
-    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="selected-videos">
+    <div id="selectedVideosDiv" v-if="selectedVideos.length > 0" class="selected-videos bordered">
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
@@ -50,7 +50,7 @@
         <button @click="prepareEmail" class="upload-button">Prepare Email</button>
       </div>
       <div id="emailFormDiv" v-if="showEmailForm" class="email-form">
-        <h2>Prepare Email:</h2>
+        <h2 class="email-header">Prepare Email:</h2>
         <div id="emailInputsDiv">
           <div class="email-input-row">
             <label for="recipientEmail">Recipient:</label>
@@ -276,7 +276,6 @@ body, html {
   padding: 10px;
   margin-top: 20px;
   align-items: center;
-  border: 1px solid black; /* Added border */
 }
 
 #spacer {
@@ -294,6 +293,10 @@ body, html {
   height: 100%;
 }
 
+.bordered {
+  border: 1px solid black;
+}
+
 #uploadDiv {
   display: flex;
   justify-content: center;
@@ -306,7 +309,6 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black; /* Added border */
 }
 
 #emailInteractionDiv {
@@ -325,41 +327,36 @@ body, html {
   align-items: center;
 }
 
+.email-header {
+  margin-bottom: -20px;
+}
+
 #emailInputsDiv {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
 }
 
 .email-input-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  margin-right: 3px;
 }
 
-.email-form label,
-.email-form input,
-.email-form textarea {
-  width: 100%;
+.email-input-row label, .email-input-row input, .email-input-row textarea {
+  margin: 0;
 }
 
 .email-action-buttons {
-  width: 100%;
+  width: 60%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 5px;
 }
 
 .category-button {
   margin-bottom: 5px;
   margin-right: 5px;
-}
-
-.bordered {
-  margin-bottom: 5px;
-  border: 1px solid black;
-  padding: 10px;
 }
 
 .active {
@@ -424,6 +421,8 @@ body, html {
   width: 100%;
 }
 </style>
+
+
 
 
 

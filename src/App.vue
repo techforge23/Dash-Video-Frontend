@@ -324,10 +324,13 @@ body, html {
   width: 50%;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .email-header {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  position: absolute;
+  top: -20px;
 }
 
 #emailInputsDiv {
@@ -347,10 +350,18 @@ body, html {
   margin: 0;
 }
 
+#emailBody {
+  height: 60px;
+}
+
 .email-action-buttons {
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.sendButton {
+  margin-left: 5px;
 }
 
 .category-button {
@@ -420,3 +431,4 @@ body, html {
   width: 100%;
 }
 </style>
+

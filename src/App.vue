@@ -45,7 +45,7 @@
       <h2>Selected Videos:</h2>
       <p>{{ selectedVideos.map(video => video.filename).join(', ') }}</p>
     </div>
-    <div id="emailInteractionDiv" class= email-interaction">
+    <div id="emailInteractionDiv" class="email-interaction">
       <div id="prepareEmailDiv" v-if="!showEmailForm && selectedVideos.length > 0">
         <button @click="prepareEmail" class="prepareButton">Prepare Email</button>
       </div>

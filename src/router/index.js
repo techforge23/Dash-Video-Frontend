@@ -7,7 +7,6 @@ const routes = [
     name: 'Videos',
     component: Videos,
   }
-  // Add more routes as needed for your application
 ];
 
 const router = createRouter({

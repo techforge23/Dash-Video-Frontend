@@ -1,4 +1,4 @@
-# frontend for Dash Video App
+# Frontend for Dash Video App
 
 ## Project setup
 ```
